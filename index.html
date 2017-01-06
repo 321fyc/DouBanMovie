@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Moviecat</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="css/app.css">
+</head>
+
+<body ng-app = "myApp" ng-controller="myCtr">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Moviecat</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <!--输入搜索的内容，敲回车，触发searchMovie事件，然后更新hash值，通过路由表进行匹配，进入对应的控制器，获得q值，然后请求数据-->
+            <form class="navbar-form navbar-right" ng-controller="searchCtr" ng-submit="searchMovie()">
+                <input ng-model="searchText" type="text" class="form-control" placeholder="搜索">
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <!--点击此处li标签下面的a标签，可改变地址栏中的hash值，然后通过路由表的匹配，进入对应的控制器请求数据-->
+                <li><a href="#/movie/in_theaters">正在热映</a></li>
+                <li><a href="#/movie/coming_soon">即将上映</a></li>
+                <li><a href="#/movie/top250">TOP250</a></li>
+            </ul>
+        </div>
+        <!-- 主要的内容区域 -->
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <!--根据请求回来的数据，绑定到模板，最终丢到ng-view占位符，然后渲染页面-->
+            <ng-view></ng-view>
+        </div>
+    </div>
+</div>
+</body>
+<script src="node_modules/angular/angular.js"></script>
+<script src="node_modules/angular-route/angular-route.js"></script>
+<script src="modules/main/route.js"></script>
+<script src="modules/main/controller.js"></script>
+<script src="modules/in_theaters/route.js"></script>
+<script src="modules/in_theaters/controller.js"></script>
+<script src="modules/service/service.js"></script>
+<script src="modules/subjects/route.js"></script>
+<script src="modules/subjects/controller.js"></script>
+<script src="modules/searchMovie/controller.js"></script>
+
+</html>
